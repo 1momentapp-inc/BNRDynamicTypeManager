@@ -46,6 +46,15 @@
 ///------------------------
 
 /**
+ Start watching a UIView. If the view is a recognized view we call one of the methods below
+ else it is ignored
+ 
+ @param label The UIView to watch.
+ @param style The text style to use. See "Text Styles" in `UIFontDescriptor Class Reference` for recognized values. Passing nil looks up the current style on the view
+*/
+- (void)watchView:(UIView *)view textStyle:(NSString *)style;
+
+/**
  Start watching a UILabel. We will set its font to `[UIFont preferredFontForTextStyle:style]`
  now and any time the font size changes (i.e., when the app receives a `UIContentSizeCategoryDidChangeNotification`.
 

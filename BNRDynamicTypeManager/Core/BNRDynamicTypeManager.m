@@ -55,12 +55,16 @@ static NSString * const BNRDynamicTypeManagerFontKeypathUITextView  = @"font";
     static NSArray *textStyles;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        textStyles = @[UIFontTextStyleBody,
-                       UIFontTextStyleCaption1,
-                       UIFontTextStyleCaption2,
-                       UIFontTextStyleFootnote,
+        textStyles = @[UIFontTextStyleTitle1,
+                       UIFontTextStyleTitle2,
+                       UIFontTextStyleTitle3,
                        UIFontTextStyleHeadline,
-                       UIFontTextStyleSubheadline];
+                       UIFontTextStyleSubheadline,
+                       UIFontTextStyleBody,
+                       UIFontTextStyleCallout,
+                       UIFontTextStyleFootnote,
+                       UIFontTextStyleCaption1,
+                       UIFontTextStyleCaption2];
     });
 
     for (NSString *style in textStyles) {
@@ -93,6 +97,17 @@ static NSString * const BNRDynamicTypeManagerFontKeypathUITextView  = @"font";
 }
 
 #pragma mark - Public API
+
+- (void)watchView:(UIView *)view textStyle:(NSString *)style
+{
+    if ([view isKindOfClass:[UILabel class]]) {
+        [self watchLabel:(UILabel *)view textStyle:style];
+    } else if ([view isKindOfClass:[UITextField class]]) {
+        [self watchTextField:(UITextField *)view textStyle:style];
+    } else if ([view isKindOfClass:[UITextView class]]) {
+        [self watchTextView:(UITextView *)view textStyle:style];
+    }
+}
 
 - (void)watchLabel:(UILabel *)label textStyle:(NSString *)style
 {
